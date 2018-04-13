@@ -14,6 +14,8 @@ RUN set -xe \
         bash \
         ca-certificates \
         curl \
+    && if [ -f /conf/ca-cert.pem ]; then cp /conf/ca-cert.pem /usr/local/share/ca-certificates/ \
+    && update-ca-certificates &> /dev/null; fi \
     && apk add --no-cache --virtual .build-deps \
         tar \
     \
