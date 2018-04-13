@@ -2,9 +2,11 @@
 set -e
 
 if [ -f /conf/ca-cert.pem ]; then
-  echo "Installing custom CA certificate."
-  cp /conf/ca-cert.pem /usr/local/share/ca-certificates/
-  update-ca-certificates &> /dev/null
+  if [ ! -f /usr/local/share/ca-certificates/ca-cert.pem ]; then
+    echo "Installing custom CA certificate."
+    cp /conf/ca-cert.pem /usr/local/share/ca-certificates/
+    update-ca-certificates &> /dev/null
+  fi
 fi
 
 # first arg is `-f` or `--some-option`
