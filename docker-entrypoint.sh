@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+if [ -f /conf/ca-cert.pem ]; then
+  echo "Installing custom CA certificate."
+  cp /conf/ca-cert.pem /usr/local/share/ca-certificates/
+  update-ca-certificates &> /dev/null
+fi
+
 # first arg is `-f` or `--some-option`
 if [ "${1:0:1}" = '-' ]; then
     set -- oauth2_proxy "$@"
